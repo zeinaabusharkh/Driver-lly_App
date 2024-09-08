@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Community">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_marginBottom="40dp">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+          >
+    <!-- Recent Trips Section -->
+    <TextView
+        android:id="@+id/trip_destenation_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="24dp"
+
+        android:text="Community "
+        android:textColor="@color/black"
+        android:textSize="30dp"
+        android:textStyle="bold" />
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/inviteButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#070707"
+                android:text="Invite"
+                android:textColorLink="#040404"
+                android:textSize="18dp" />
+
+        </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="24dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Profile Header -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:paddingTop="50dp"
+                android:paddingBottom="20dp">
+
+                <ImageView
+                    android:id="@+id/profile_image"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:background="@drawable/circular_shape"
+                    android:src="@drawable/omar" />
+
+                <TextView
+                    android:id="@+id/profile_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Omar"
+                    android:textColor="@color/black"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/profile_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Dubai, UAE"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:backgroundTint="#070707"
+                    android:id="@+id/view_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="8dp"
+                    android:text="View"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:paddingTop="50dp"
+                android:paddingBottom="20dp">
+
+                <ImageView
+                    android:id="@+id/profile_image"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:background="@drawable/circular_shape"
+                    android:src="@drawable/kenzy" />
+
+                <TextView
+                    android:id="@+id/profile_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Kenzy"
+                    android:textColor="@color/black"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/profile_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Sharjah, UAE"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:backgroundTint="#070707"
+                    android:id="@+id/view_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:drawablePadding="8dp"
+                    android:text="View"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:paddingTop="50dp"
+                android:paddingBottom="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal">
+
+                <ImageView
+                    android:id="@+id/profile_image"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/amin"
+                    android:background="@drawable/circular_shape" />
+
+                <TextView
+                    android:id="@+id/profile_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Amin"
+                    android:textSize="24sp"
+                    android:textColor="@color/black"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:id="@+id/profile_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Dubai, UAE"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:gravity="center"/>
+
+                <Button
+                    android:backgroundTint="#070707"
+                    android:id="@+id/view_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="8dp"
+                    android:text="View"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
+            <!-- Connection and Community Buttons -->
+        </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

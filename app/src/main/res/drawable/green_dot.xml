@@ -1,0 +1,5 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#4CAF50" /> <!-- Define the color of the dot -->
+    <corners android:radius="50dp" /> <!-- Make it circular -->
+    <size android:width="10dp" android:height="10dp" /> <!-- Size of the dot -->
+</shape>
