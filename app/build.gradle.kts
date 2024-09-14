@@ -38,7 +38,10 @@ android {
 }
 
 dependencies {
+    implementation("jp.wasabeef:glide-transformations:4.3.0")
 
+    implementation ("com.github.bumptech.glide:glide:4.12.0")
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.12.0")
         implementation("com.google.firebase:firebase-auth-ktx:21.0.1")
         implementation("com.google.firebase:firebase-database-ktx:20.0.3")
         implementation("com.google.firebase:firebase-storage-ktx:20.0.1")

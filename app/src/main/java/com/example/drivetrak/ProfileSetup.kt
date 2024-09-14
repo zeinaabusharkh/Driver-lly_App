@@ -112,14 +112,16 @@ class ProfileSetup : AppCompatActivity() {
         val currentUser = auth.currentUser
         currentUser?.let {
             val uid = it.uid
-            val user = User(uid = uid, username = username, profileImageUrl = profileImageUrl, email = it.email)
-
             // Store the user info in Firestore
             firestore.collection("users").document(uid)
-                .set(user)
+                .update(mapOf(
+                    "username" to username,
+                    "profileImageUrl" to profileImageUrl
+
+                ))
                 .addOnSuccessListener {
                     Toast.makeText(this, "User info added successfully!", Toast.LENGTH_SHORT).show()
-                    startActivity(Intent(this, ConnectObd::class.java))
+                    startActivity(Intent(this, ConnectVehicle::class.java))
                     finish()
                 }
                 .addOnFailureListener { e ->
