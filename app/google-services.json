@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "340314912400",
+    "project_id": "drive-trak",
+    "storage_bucket": "drive-trak.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:340314912400:android:d87acf1d6ff6d02a2aca15",
+        "android_client_info": {
+          "package_name": "com.example.drivetrak"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-hOnjMYU8cynq9SUF0hcGEDFsKuHPUJ0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

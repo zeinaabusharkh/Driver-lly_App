@@ -21,7 +21,7 @@ class ConnectVehicle : AppCompatActivity() {
         val nextButtonVehicle: Button = findViewById(R.id.nextButtonVehicle)
 
         nextButtonVehicle.setOnClickListener {
-            val intent = Intent(this, Dashboard::class.java)
+            val intent = Intent(this, ConnectObd::class.java)
             startActivity(intent)
         }
     }
