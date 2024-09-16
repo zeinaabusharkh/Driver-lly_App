@@ -105,7 +105,7 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:background="@drawable/circular_green_background"
-                    android:text="96%"
+
                     android:textSize="24sp"
                     android:textColor="@color/white"
                     android:gravity="center"/>

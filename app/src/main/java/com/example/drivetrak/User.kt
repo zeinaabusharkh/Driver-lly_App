@@ -6,6 +6,7 @@ data class User(
     val email: String? = null,
     val Vehicle: String? = null,
     var profileImageUrl: String? = null,
-    var profileLocation: String? = null
-
+    var profileLocation: String? = null,
+    var friends: List<String>? = null,
+    var Score: Int? = null
 )

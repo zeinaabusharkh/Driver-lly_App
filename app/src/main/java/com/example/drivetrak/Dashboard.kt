@@ -42,6 +42,7 @@ class Dashboard : AppCompatActivity() {
             val profileImageView: ImageView = findViewById(R.id.profileImageView)
             val profile_location: TextView = findViewById(R.id.profile_location)
             val logout_button: Button = findViewById(R.id.logout_button)
+            val score_text: TextView = findViewById(R.id.score_text)
 
             communityButton.setOnClickListener {
                 startActivity(Intent(this, Community::class.java))
@@ -59,9 +60,18 @@ class Dashboard : AppCompatActivity() {
             firestore.collection("users").document(currentUser.uid).get()
                 .addOnSuccessListener { document ->
                     if (document != null) {
-                        val username = document.getString("username")
+                        val username = document.getString("username")?: "Unknown"
                         val profileImageUrl = document.getString("profileImageUrl")
-                        val profileLocation = document.getString("profileLocation")
+                        val profileLocation = document.getString("profileLocation")?: "Unknown"
+                        val score = document.getLong("score")
+
+                        if (score != null){
+                            score_text.text = score.toString()+"%"
+                        }
+                        else
+                        {
+                            score_text.text = "0%"
+                        }
 
                         usernameTextView.text = username
                         profile_location.text = profileLocation
