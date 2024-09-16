@@ -17,6 +17,15 @@
             android:padding="16dp">
 
             <!-- Profile Header -->
+
+            <Button
+                android:id="@+id/logout_button"
+                android:layout_gravity="end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10dp"
+                android:text="LOGOUT" />
+
             <LinearLayout
                 android:paddingTop="50dp"
                 android:paddingBottom="20dp"
@@ -43,10 +52,11 @@
                     android:id="@+id/profile_location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Sharjah, UAE"
+
                     android:textSize="16sp"
                     android:textColor="@color/black"
                     android:gravity="center"/>
+
             </LinearLayout>
 
             <!-- Connection and Community Buttons -->

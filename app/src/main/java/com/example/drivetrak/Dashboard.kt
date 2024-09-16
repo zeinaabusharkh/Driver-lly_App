@@ -40,12 +40,19 @@ class Dashboard : AppCompatActivity() {
             val communityButton: Button = findViewById(R.id.community_button)
             val usernameTextView: TextView = findViewById(R.id.usernameTextView)
             val profileImageView: ImageView = findViewById(R.id.profileImageView)
+            val profile_location: TextView = findViewById(R.id.profile_location)
+            val logout_button: Button = findViewById(R.id.logout_button)
 
             communityButton.setOnClickListener {
                 startActivity(Intent(this, Community::class.java))
             }
             viewAll.setOnClickListener {
                 startActivity(Intent(this, ViewAll::class.java))
+            }
+            logout_button.setOnClickListener {
+                auth.signOut()
+                startActivity(Intent(this, MainActivity::class.java))
+                finish()
             }
 
             // Retrieve user data from Firestore
@@ -54,8 +61,10 @@ class Dashboard : AppCompatActivity() {
                     if (document != null) {
                         val username = document.getString("username")
                         val profileImageUrl = document.getString("profileImageUrl")
+                        val profileLocation = document.getString("profileLocation")
 
                         usernameTextView.text = username
+                        profile_location.text = profileLocation
                         if (!profileImageUrl.isNullOrEmpty()) {
                             Glide.with(this)
                                 .load(profileImageUrl)

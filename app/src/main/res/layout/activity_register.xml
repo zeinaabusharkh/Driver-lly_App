@@ -41,6 +41,13 @@
             android:layout_marginTop="12dp"
             android:background="@android:color/white" />
 
+        <Spinner
+            android:layout_marginTop="12dp"
+            android:padding="12dp"
+            android:id="@+id/city_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
         <Button
             android:id="@+id/registerButton"
             android:layout_width="match_parent"

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="cities_array">
+        <item> Select A City </item>
+        <item>Dubai, UAE</item>
+        <item>Sharjah, UAE</item>
+        <item>Ajman, UAE</item>
+        <item>Fujairah, UAE</item>
+        <item>Abu Dhabi, UAE</item>
+        <item>Ras Al Khaimah, UAE</item>
+        <item>Umm Al Quwain, UAE</item>
+        <item>Al Ain, UAE</item>
+    </string-array>
+
+</resources>
