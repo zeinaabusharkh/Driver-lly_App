@@ -44,6 +44,7 @@ class Dashboard : AppCompatActivity() {
             val profileImageView: ImageView = findViewById(R.id.profileImageView)
             val profile_location: TextView = findViewById(R.id.profile_location)
             val logout_button: Button = findViewById(R.id.logout_button)
+            val settingsButton: Button = findViewById(R.id.settings_button)
             val score_text: TextView = findViewById(R.id.score_text)
 
             communityButton.setOnClickListener {
@@ -51,6 +52,9 @@ class Dashboard : AppCompatActivity() {
             }
             viewAll.setOnClickListener {
                 startActivity(Intent(this, ViewAll::class.java))
+            }
+            settingsButton.setOnClickListener {
+                startActivity(Intent(this, Settings::class.java))
             }
             logout_button.setOnClickListener {
                 auth.signOut()

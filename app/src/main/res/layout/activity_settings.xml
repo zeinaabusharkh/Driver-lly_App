@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Settings">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:layout_marginTop="20dp"
+            android:id="@+id/setupTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="Settings"
+            android:textSize="25sp"
+            android:textColor="@android:color/black"
+            android:gravity="center" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_gravity="start"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:text="Manage Your Account Settings" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:layout_gravity="start"
+            android:textSize="10dp"
+            android:textStyle="bold"
+            android:text="Change Profile Picture, Username or Delete Account" />
+
+        <Button
+            android:id="@+id/accountSettingsButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Account Settings"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@android:color/black"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_gravity="start"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:text="Manage Your Notifications Settings" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:layout_gravity="start"
+            android:textSize="10dp"
+            android:textStyle="bold"
+            android:text="Change Notifications prefrences " />
+        <Button
+            android:id="@+id/notificationsButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Notifications"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@android:color/black"
+            android:textColor="@android:color/white" />
+
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -17,14 +17,38 @@
             android:padding="16dp">
 
             <!-- Profile Header -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <Button
+                android:id="@+id/settings_button"
+                android:layout_width="69dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:gravity="center"
+                android:backgroundTint="#070707"
+                android:drawableLeft="@drawable/settingic"
+
+                />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
 
             <Button
                 android:id="@+id/logout_button"
-                android:layout_gravity="end"
-                android:layout_width="wrap_content"
+                android:layout_width="63dp"
                 android:layout_height="wrap_content"
-                android:textSize="10dp"
-                android:text="LOGOUT" />
+                android:layout_gravity="end"
+                android:backgroundTint="#070707"
+                android:drawableLeft="@drawable/logout"
+                android:gravity="center" />
+
+        </LinearLayout>
 
             <LinearLayout
                 android:paddingTop="50dp"
