@@ -1,7 +1,9 @@
 package com.example.drivetrak
 
 import android.content.Intent
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -40,16 +42,20 @@ class FriendDashboard : AppCompatActivity() {
                 val username = document.getString("username") ?: "Unknown"
                 val location = document.getString("profileLocation") ?: "Unknown"
                 val profileImageUrl = document.getString("profileImageUrl")
-                val score = document.getLong("Score")
+                val score = document.getLong("score")
 
                 profileNameTextView.text = username
                 profileLocationTextView.text = location
                 if (score != null){
-                    score_text.text = score.toString()+"%"
+                    score_text.text = "$score%"
+                    setScoreBackgroundColor(score_text, score)
                 }
                 else
                 {
                     score_text.text = "0%"
+                    setScoreBackgroundColor(score_text, 0)
+                    findViewById<TextView>(R.id.no_trips_message).visibility = View.VISIBLE
+
                 }
 
                 if (!profileImageUrl.isNullOrEmpty()) {
@@ -81,4 +87,17 @@ class FriendDashboard : AppCompatActivity() {
                 }
         }
     }
+    private fun setScoreBackgroundColor(textView: TextView, score: Long) {
+        val color = when {
+            score >= 80 -> android.graphics.Color.GREEN
+            score >= 50 -> android.graphics.Color.YELLOW
+            else -> android.graphics.Color.RED
+        }
+
+        val drawable = GradientDrawable()
+        drawable.shape = GradientDrawable.OVAL
+        drawable.setColor(color)
+        textView.background = drawable
+    }
 }
+

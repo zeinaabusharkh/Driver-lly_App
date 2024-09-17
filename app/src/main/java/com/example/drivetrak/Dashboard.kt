@@ -1,7 +1,9 @@
 package com.example.drivetrak
 
 import android.content.Intent
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -66,11 +68,16 @@ class Dashboard : AppCompatActivity() {
                         val score = document.getLong("score")
 
                         if (score != null){
-                            score_text.text = score.toString()+"%"
+
+                            score_text.text = "$score%"
+                            setScoreBackgroundColor(score_text, score)
                         }
                         else
                         {
                             score_text.text = "0%"
+                            setScoreBackgroundColor(score_text, 0)
+                            findViewById<TextView>(R.id.no_trips_message).visibility = View.VISIBLE
+
                         }
 
                         usernameTextView.text = username
@@ -91,5 +98,19 @@ class Dashboard : AppCompatActivity() {
                     usernameTextView.text = "Error: ${e.message}"
                 }
         }
+    }
+
+    private fun setScoreBackgroundColor(textView: TextView, score: Long) {
+        val color = when {
+            score >= 80 -> android.graphics.Color.GREEN
+            score >= 50 -> android.graphics.Color.argb(255, 255, 165, 0) // Orange
+            score.toInt() == 0 -> android.graphics.Color.BLACK
+            else -> android.graphics.Color.RED
+        }
+
+        val drawable = GradientDrawable()
+        drawable.shape = GradientDrawable.OVAL
+        drawable.setColor(color)
+        textView.background = drawable
     }
 }

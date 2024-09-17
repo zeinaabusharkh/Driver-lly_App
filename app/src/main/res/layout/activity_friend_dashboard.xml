@@ -78,7 +78,19 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:gravity="center">
+                <TextView
+                    android:id="@+id/no_trips_message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="No trips found to calculate the score!!"
+                    android:textSize="18sp"
+                    android:layout_gravity="center"
+                    android:textAlignment="center"
+                    android:paddingBottom="10dp"
+                    android:textColor="@color/black"
+                    android:visibility="gone"/>
 
                 <TextView
                     android:id="@+id/score_text"
