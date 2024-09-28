@@ -2,31 +2,71 @@ package com.example.drivetrak
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class ViewAll : AppCompatActivity() {
+    private lateinit var auth: FirebaseAuth
+    private lateinit var firestore: FirebaseFirestore
+    private lateinit var trips_container: LinearLayout
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_view_all)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+
+        auth = FirebaseAuth.getInstance()
+        firestore = FirebaseFirestore.getInstance()
+        trips_container = findViewById(R.id.trips_container)
+
+        loadTrip()
+    }
+
+    private fun loadTrip() {
+        val currentUser = auth.currentUser
+        currentUser?.let {
+            firestore.collection("users").document(it.uid).get()
+                .addOnSuccessListener { document ->
+                    val tripIds = document.get("tripIds") as? List<String> ?: emptyList()
+                    trips_container.removeAllViews() // Clear existing views
+                    for (tripId in tripIds) {
+                        loadTriplast(tripId)
+                    }
+                }
+                .addOnFailureListener { e ->
+                    Toast.makeText(this, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
         }
+    }
 
+    private fun loadTriplast(tripId: String) {
+        firestore.collection("trips").document(tripId).get()
+            .addOnSuccessListener { document ->
+                val departure = document.getString("departure") ?: "Unknown"
+                val destination = document.getString("destination") ?: "Unknown"
+                val duration = document.getString("duration") ?: "Unknown"
+                val date = document.getString("date") ?: "Unknown"
+                val mapUrl = document.getString("mapUrl") ?: "Unknown"
 
-           val tripinfo: LinearLayout = findViewById(R.id.tripinfo)
+                val tripView = layoutInflater.inflate(R.layout.trip_item, trips_container, false)
+                val departureTextView: TextView = tripView.findViewById(R.id.departure_text)
+                val destinationTextView: TextView = tripView.findViewById(R.id.destination_text)
+                val durationTextView: TextView = tripView.findViewById(R.id.route_duration)
+                val dateTextView: TextView = tripView.findViewById(R.id.date_of_route)
 
-           tripinfo.setOnClickListener {
-               val intent = Intent(this, TripDetail::class.java)
-               startActivity(intent)
-           }
+                departureTextView.text = departure
+                destinationTextView.text = destination
+                durationTextView.text = duration
+                dateTextView.text = date
+                trips_container.addView(tripView)
+            }
+        trips_container.setOnClickListener {
+            val intent = Intent(this, TripDetail::class.java)
+            intent.putExtra("tripId", tripId)
+            startActivity(intent)
+        }
     }
 }

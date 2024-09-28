@@ -109,6 +109,6 @@ class Community : AppCompatActivity() {
     }
 
     companion object {
-        private const val REQUEST_CODE_INVITE = 1
+        const val REQUEST_CODE_INVITE = 1
     }
 }

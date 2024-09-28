@@ -8,5 +8,7 @@ data class User(
     var profileImageUrl: String? = null,
     var profileLocation: String? = null,
     var friends: List<String>? = null,
-    var Score: Int? = null
+    var Score: Int? = null,
+    val tripIds: List<String> = emptyList()
+
 )

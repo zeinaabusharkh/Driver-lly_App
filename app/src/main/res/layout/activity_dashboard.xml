@@ -104,6 +104,15 @@
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:layout_marginTop="8dp"/>
+            <Button
+                android:backgroundTint="#070707"
+                android:id="@+id/Start_Trip_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Start Trip"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:layout_marginTop="8dp"/>
 
             <!-- Latest Drive Score Section -->
             <TextView
@@ -153,7 +162,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-
                 android:orientation="horizontal">
 
                 <TextView
@@ -180,90 +188,25 @@
                     android:textStyle="bold" />
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/no_trips_message_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="You don't have any trips yet to calculate the score!!"
+                android:textSize="18sp"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:paddingBottom="10dp"
+                android:textColor="@color/black"
+                android:visibility="gone" />
+
             <LinearLayout
+                android:id="@+id/trips_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-
                 android:orientation="vertical">
-            <!-- Map View (replace this with a real MapView in your app) -->
-
-                <ImageView
-
-                    android:id="@+id/recent_trip_map"
-                    android:layout_width="match_parent"
-                    android:layout_height="120dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/samplemap" />
-
-                <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-
-                    <ImageView
-                        android:paddingRight="5dp"
-                        android:layout_width="21dp"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/start" />
-                <TextView
-                    android:id="@+id/departure_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="American University of Sharjah"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
-                <TextView
-                    android:id="@+id/route_duration"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="10 min"
-                    android:textAlignment="textEnd"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
             </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <ImageView
-                    android:paddingRight="5dp"
-                    android:layout_width="21dp"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/stop" />
-
-                <TextView
-                    android:id="@+id/destination_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="06 Mall"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
-                <TextView
-                    android:id="@+id/date_of_route"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="04.24.2024"
-                    android:textAlignment="textEnd"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
-            </LinearLayout>
-
-            </LinearLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
