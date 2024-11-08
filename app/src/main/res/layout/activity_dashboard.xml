@@ -86,13 +86,12 @@
             <!-- Connection and Community Buttons -->
             <Button
                 android:backgroundTint="#070707"
-                android:id="@+id/connected_button"
+                android:id="@+id/leadership_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="CONNECTED"
+                android:text="LEADERSHIP BOARD"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:drawableLeft="@drawable/green_dot"
                 android:drawablePadding="8dp"/>
 
             <Button
@@ -101,15 +100,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="COMMUNITY"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:layout_marginTop="8dp"/>
-            <Button
-                android:backgroundTint="#070707"
-                android:id="@+id/Start_Trip_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Start Trip"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:layout_marginTop="8dp"/>

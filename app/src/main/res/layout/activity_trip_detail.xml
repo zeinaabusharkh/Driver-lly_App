@@ -1,366 +1,568 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TripDetail">
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white">
-
+    android:layout_margin="16dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="4dp"
+    android:background="@color/white"
+    app:cardBackgroundColor="@color/white">
 
     <LinearLayout
+        android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp"
-        android:layout_marginBottom="40dp">
+        android:padding="16dp">
 
-
-
-    <!-- Recent Trips Section -->
-        <TextView
-            android:id="@+id/trip_destenation_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="20dp"
-            android:text="Trip to 06 Mall"
-            android:textColor="@color/black"
-            android:textSize="24dp"
-            android:textStyle="bold" />
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="24dp"
-
-        android:orientation="vertical">
-        <!-- Map View (replace this with a real MapView in your app) -->
-
-        <ImageView
-
-            android:id="@+id/recent_trip_map"
-            android:layout_width="match_parent"
-            android:layout_height="228dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/samplemap" />
-
-        <LinearLayout
+        <!-- Trip Overview Section -->
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="@color/white">
 
-            <ImageView
-                android:layout_width="21dp"
-                android:layout_height="match_parent"
-                android:paddingRight="5dp"
-                android:src="@drawable/start" />
-
-            <TextView
-                android:id="@+id/departure_text"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="American University of Sharjah"
-                android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:orientation="vertical"
+                android:padding="24dp">
 
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                <TextView
+                    android:id="@+id/trip_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Trip Details"
+                    android:textColor="@color/black"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/route_duration"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="10 min"
-                android:textAlignment="textEnd"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
-        </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/calendar"
+                        />
 
-            <ImageView
-                android:layout_width="21dp"
-                android:layout_height="match_parent"
-                android:paddingRight="5dp"
-                android:src="@drawable/stop" />
+                    <TextView
+                        android:id="@+id/trip_date"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
 
-            <TextView
-                android:id="@+id/destination_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="06 Mall"
-                android:textColor="@color/black"
-                android:textSize="18sp" />
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/clock"
+                        />
 
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                    <TextView
+                        android:id="@+id/trip_duration"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+                </LinearLayout>
 
-            <TextView
-                android:id="@+id/date_of_route"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="04.24.2024"
-                android:textAlignment="textEnd"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
-        </LinearLayout>
-        <!-- Latest Drive Score Section -->
-        <TextView
-            android:id="@+id/latest_drive_score"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="20dp"
-            android:text="Drive Score"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
-        <!-- Drive Score Circular Indicator -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center">
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/start"
+                         />
 
-            <TextView
-                android:id="@+id/score_text"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:background="@drawable/circular_green_background"
-                android:text="96%"
-                android:textSize="24sp"
-                android:textColor="@color/white"
-                android:gravity="center"/>
-        </LinearLayout>
-        <LinearLayout
+                    <TextView
+                        android:id="@+id/trip_times"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Overall Score -->
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-
-            android:orientation="horizontal">
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="@color/white">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="24dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Performance Report"
+                android:text="Trip Score"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="24dp">
 
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/overall_score_text"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:background="@drawable/circular_shape"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textColor="@color/white"
+                    android:textSize="28sp" />
+            </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-        <!-- Performance Report Section -->
-        <LinearLayout
+        <!-- Alerts Section -->
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="10dp"
-            android:background="#D3D2D2"
-            android:padding="30dp"
-            >
+            android:layout_marginTop="24dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="@color/white">
 
-
-
-            <!-- Individual Report Items -->
-            <!-- Example for acceleration, repeat for other metrics -->
-            <TextView
-                android:id="@+id/acceleration_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="ACCELERATION"
-                android:textSize="16sp"
-                android:textColor="@color/black"/>
-
-            <ProgressBar
-                android:id="@+id/acceleration_progress"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:progress="80"
-                android:progressTint="#4CAF50"/>
-
-            <!-- Repeat for braking, distractions, etc. -->
-            <!-- Braking -->
-            <TextView
-                android:id="@+id/Braking_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="BRAKING"
-                android:textSize="16sp"
-                android:textColor="@color/black" />
-
-            <ProgressBar
-                android:id="@+id/Braking_progress"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:progress="85"
-                android:progressTint="#4CAF50" />
-
-            <!-- Phone Distractions -->
-            <TextView
-                android:id="@+id/PhoneDistractions_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="PHONE DISTRACTIONS"
-                android:textSize="16sp"
-                android:textColor="@color/black" />
-
-            <ProgressBar
-                android:id="@+id/PhoneDistractions_progress"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:progress="20"
-                android:progressTint="#4CAF50" />
-
-            <!-- Speeding -->
-            <TextView
-                android:id="@+id/Speeding_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="SPEEDING"
-                android:textSize="16sp"
-                android:textColor="@color/black" />
-
-            <ProgressBar
-                android:id="@+id/Speeding_progress"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:progress="79"
-                android:progressTint="#4CAF50" />
-
-            <!-- Drowsiness -->
-            <TextView
-                android:id="@+id/Drowsiness_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="DROWSINESS"
-                android:textSize="16sp"
-                android:textColor="@color/black" />
-
-            <ProgressBar
-                android:id="@+id/Drowsiness_progress"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:progress="80"
-                android:progressTint="#4CAF50" />
-
-            <!-- Noise Levels -->
-            <TextView
-                android:id="@+id/NoiseLevels_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="NOISE LEVELS"
-                android:textSize="16sp"
-                android:textColor="@color/black" />
-
-            <ProgressBar
-                android:id="@+id/NoiseLevels_progress"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:progress="12"
-                android:progressTint="#FF5722" /> <!-- Red progress tint for lower performance -->
-
-            <!-- Gaze -->
-            <TextView
-                android:id="@+id/Gaze_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="GAZE"
-                android:textSize="16sp"
-                android:textColor="@color/black" />
-
-            <ProgressBar
-                android:id="@+id/Gaze_progress"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:progress="85"
-                android:progressTint="#4CAF50" />
-
-
-
-            <!-- Summary Section -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
+                android:padding="24dp">
 
-                android:layout_marginTop="16dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp">
 
-                <TextView
-                    android:id="@+id/total_distance"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="200 KM"
-                    android:textSize="18sp"
-                    android:textColor="@color/black"/>
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/warning" />
 
-                <Space
-                    android:layout_width="wrap_content"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Alerts"
+                        android:textColor="@color/black"
+                        android:layout_marginLeft="10dp"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-                <TextView
-                    android:id="@+id/total_trips"
-                    android:layout_width="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/sleepy"
+                        />
+
+
+                    <TextView
+                        android:id="@+id/drowsy_count"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_weight="1"
+                        android:text="Drowsiness:"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/yawn"
+                        />
+
+                    <TextView
+                        android:id="@+id/yawning_count"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_weight="1"
+                        android:text="Yawning: "
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="20"
-                    android:textSize="18sp"
-                    android:textColor="@color/black"/>
+                    android:layout_marginTop="16dp"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/emergency_braking"
+                        />
+
+
+                    <TextView
+                        android:id="@+id/emergency_braking_count"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_weight="1"
+                        android:text="Emergency Braking:"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/hard_acceleration"
+                       />
+
+                    <TextView
+                        android:id="@+id/hard_acceleration_count"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_weight="1"
+                        android:text="Hard Acceleration: "
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/speeding" />
+
+                    <TextView
+                        android:id="@+id/speeding_count"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_weight="1"
+                        android:text="Speeding: "
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/battery"
+                       />
+
+                    <TextView
+                        android:id="@+id/battery_alert_count"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_weight="1"
+                        android:text="Battery Alerts: "
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/fuel"
+                      />
+
+                    <TextView
+                        android:id="@+id/fuel_alert_count"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_weight="1"
+                        android:text="Fuel Alerts: "
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+                </LinearLayout>
             </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Driving Metrics Section -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="@color/white">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                >
-
-                <TextView
-                    android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:padding="24dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Total Distance"
-                    android:textSize="15sp"
-                    android:textColor="@color/black"/>
+                    android:padding="16dp">
 
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-                <TextView
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/metrics" />
 
-                    android:layout_width="wrap_content"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Driving Metrics"
+                        android:textColor="@color/black"
+                        android:layout_marginLeft="10dp"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="TRIPS"
-                    android:textSize="15sp"
-                    android:textColor="@color/black"/>
+                    android:layout_marginTop="16dp"
+
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/speeding"
+                        />
+
+                    <TextView
+                        android:id="@+id/average_speed"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_weight="1"
+                        android:text="Average Speed: "
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/rpm"
+                       />
+
+                    <TextView
+                        android:id="@+id/average_rpm"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_weight="1"
+                        android:text="Average RPM: "
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/speeding"
+                      />
+
+                    <TextView
+                        android:id="@+id/highest_speed"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_weight="1"
+                        android:text="Highest Speed: "
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/min_speed"
+                        />
+
+                    <TextView
+                        android:id="@+id/lowest_speed"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_weight="1"
+                        android:text="Lowest Speed: "
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/fuel"
+                      />
+
+                    <TextView
+                        android:id="@+id/fuel_used"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_weight="1"
+                        android:text="Fuel Used: "
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Driving Metrics Section -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="@color/white">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="24dp">
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ai" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="AI Trip Feedback"
+                        android:textColor="@color/black"
+                        android:layout_marginLeft="10dp"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/feedback_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Feedback"
+                        android:textSize="14sp"
+                        android:textColor="#000"
+                        android:textStyle="bold"
+                        android:paddingBottom="4dp"/>
+
+                    <!-- Feedback Text -->
+                    <TextView
+                        android:id="@+id/feedback_message"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textSize="14sp"
+                        android:textColor="#333"
+                        android:paddingBottom="16dp"/>
+
+                    <!-- Suggestions Section -->
+                    <TextView
+                        android:id="@+id/suggestions_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Suggestions"
+                        android:textSize="14sp"
+                        android:textColor="#000"
+                        android:textStyle="bold"
+                        android:paddingBottom="4dp"/>
+
+                    <TextView
+                        android:id="@+id/suggestions_message"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textSize="12sp"
+                        android:textColor="#FF9800"
+                        android:paddingBottom="8dp"/>
+
+                </LinearLayout>
+
+
+
+
+
+
+            </LinearLayout>
+
+
+        </com.google.android.material.card.MaterialCardView>
+
     </LinearLayout>
-
-
-    </LinearLayout>
-    </ScrollView>
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

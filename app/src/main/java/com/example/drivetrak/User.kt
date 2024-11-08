@@ -9,6 +9,14 @@ data class User(
     var profileLocation: String? = null,
     var friends: List<String>? = null,
     var Score: Int? = null,
-    val tripIds: List<String> = emptyList()
+    val tripIds: List<String> = emptyList(),
+    val position: Int? = null
 
 )
+{constructor(userId: String, username: String, score: Long, position: Int , profileImageUrl: String?) : this(
+    uid = userId,
+    username = username,
+    Score = score.toInt(),
+    position = position,
+    profileImageUrl = profileImageUrl
+)}

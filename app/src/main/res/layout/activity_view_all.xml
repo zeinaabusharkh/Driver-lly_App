@@ -5,9 +5,11 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".ViewAll">
 
 <LinearLayout
+    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="10dp"
@@ -45,7 +47,11 @@
             android:textAlignment="textEnd"
             android:textColor="@color/black"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="8dp" />
+
     </LinearLayout>
 
 

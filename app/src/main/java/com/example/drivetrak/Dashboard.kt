@@ -36,7 +36,7 @@ class Dashboard : AppCompatActivity() {
     private lateinit var logout_button: Button
     private lateinit var settingsButton: Button
     private lateinit var score_text: TextView
-    private lateinit var startTripButton: Button
+    private lateinit var leadershipButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,39 +65,12 @@ class Dashboard : AppCompatActivity() {
             profile_location = findViewById(R.id.profile_location)
             logout_button = findViewById(R.id.logout_button)
             settingsButton = findViewById(R.id.settings_button)
+            leadershipButton = findViewById(R.id.leadership_button)
             score_text = findViewById(R.id.score_text)
-            startTripButton = findViewById(R.id.Start_Trip_button)
+
 
             // Clear the trips container
             trips_container.removeAllViews()
-
-            startTripButton.setOnClickListener {
-                val tripId = firestore.collection("trips").document().id
-                // Create a trip in database
-                val trip = Trip(
-                    tripId = tripId,
-                    departure = "Mega mall",
-                    destination = "AUS",
-                    duration = "30 min",
-                    date = "2/2/2022",
-                    mapUrl = "https://www.google.com/maps/dir/Mega+Mall,+Sharjah,+United+Arab+Emirates/AUS"
-                )
-                // Save a trip in database
-                firestore.collection("trips").document(tripId).set(trip)
-                    .addOnSuccessListener {
-                        firestore.collection("users").document(currentUser.uid)
-                            .update("tripIds", FieldValue.arrayUnion(tripId))
-                            .addOnSuccessListener {
-                                Toast.makeText(this, "Trip saved successfully!", Toast.LENGTH_SHORT).show()
-                            }
-                            .addOnFailureListener { e ->
-                                Toast.makeText(this, "Failed to update user trips: ${e.message}", Toast.LENGTH_SHORT).show()
-                            }
-                    }
-                    .addOnFailureListener { e ->
-                        Toast.makeText(this, "Failed to save trip: ${e.message}", Toast.LENGTH_SHORT).show()
-                    }
-            }
 
             communityButton.setOnClickListener {
                 startActivity(Intent(this, Community::class.java))
@@ -107,6 +80,9 @@ class Dashboard : AppCompatActivity() {
             }
             settingsButton.setOnClickListener {
                 startActivity(Intent(this, Settings::class.java))
+            }
+            leadershipButton.setOnClickListener {
+                startActivity(Intent(this, Leadership::class.java))
             }
             logout_button.setOnClickListener {
                 auth.signOut()
@@ -197,22 +173,17 @@ class Dashboard : AppCompatActivity() {
                     val tripIds = document.get("tripIds") as? List<String> ?: emptyList()
                     trips_container.removeAllViews() // Clear existing views
                     if (tripIds.isNotEmpty()) {
-                        val tripDocuments = mutableListOf<DocumentSnapshot>()
-                        for (tripId in tripIds) {
-                            firestore.collection("trips").document(tripId).get()
-                                .addOnSuccessListener { tripDocument ->
-                                    tripDocuments.add(tripDocument)
-                                    if (tripDocuments.size == tripIds.size) {
-                                        // All trips are loaded, sort by timestamp
-                                        val sortedTrips = tripDocuments.sortedBy {
-                                            val timestamp = it.get("timestamp")
-                                            if (timestamp is Long) timestamp else 0L
-                                        }
-                                        // Load the most recent trip
-                                        loadTriplast(sortedTrips.last())
-                                    }
-                                }
-                        }
+                        // Get the most recent trip ID (last entry in tripIds)
+                        val mostRecentTripId = tripIds.last()
+
+                        // Retrieve and load only the most recent trip document
+                        firestore.collection("tripReports").document(mostRecentTripId).get()
+                            .addOnSuccessListener { tripDocument ->
+                                loadTriplast(tripDocument)
+                            }
+                            .addOnFailureListener { e ->
+                                Toast.makeText(this, "Error loading trip: ${e.message}", Toast.LENGTH_SHORT).show()
+                            }
                     } else {
                         findViewById<TextView>(R.id.no_trips_message).visibility = View.VISIBLE
                     }
@@ -223,25 +194,26 @@ class Dashboard : AppCompatActivity() {
         }
     }
 
+
     private fun loadTriplast(document: DocumentSnapshot) {
         trips_container.removeAllViews()
-        val departure = document.getString("departure") ?: "Unknown"
-        val destination = document.getString("destination") ?: "Unknown"
-        val duration = document.getString("duration") ?: "Unknown"
+        val duration = document.getString("totalTime") ?: "Unknown"
         val date = document.getString("date") ?: "Unknown"
-        val mapUrl = document.getString("mapUrl") ?: "Unknown"
+        val scoreTrip = document.getLong("OverAllScoreOfTrip")?.toLong() ?: 0L
         val tripId = document.id
 
         val tripView = layoutInflater.inflate(R.layout.trip_item, trips_container, false)
-        val departureTextView: TextView = tripView.findViewById(R.id.departure_text)
-        val destinationTextView: TextView = tripView.findViewById(R.id.destination_text)
+        val tripNumber = tripView.findViewById<TextView>(R.id.tripID)
         val durationTextView: TextView = tripView.findViewById(R.id.route_duration)
         val dateTextView: TextView = tripView.findViewById(R.id.date_of_route)
+        val scoretext: TextView = tripView.findViewById(R.id.score_text)
 
-        departureTextView.text = departure
-        destinationTextView.text = destination
+
         durationTextView.text = duration
         dateTextView.text = date
+        scoretext.text = scoreTrip.toString()
+        setScoreBackgroundColor(scoretext, scoreTrip)
+        tripNumber.text = tripId
         trips_container.addView(tripView)
 
         tripView.setOnClickListener {

@@ -28,20 +28,24 @@ class ConnectVehicle : AppCompatActivity() {
         }
 
         val vehicleName: TextView = findViewById(R.id.vehicleNameInput)
+        val vinInput: TextView = findViewById(R.id.vinInput)
+
         val nextButtonVehicle: Button = findViewById(R.id.nextButtonVehicle)
         auth = FirebaseAuth.getInstance()
         firestore = FirebaseFirestore.getInstance()
 
         nextButtonVehicle.setOnClickListener {
-            val Vehicle = vehicleName.text.toString()
+            val VehicleVin = vinInput.text.toString()
+            val VehicleName = vehicleName.text.toString()
+
             val currentUser = auth.currentUser
             currentUser?.let {
                 val uid = it.uid
                 firestore.collection("users").document(uid)
-                    .update("vehicle", Vehicle)
+                    .update("vehicle", VehicleVin , "vehicleName", VehicleName)
                     .addOnSuccessListener {
                         Toast.makeText(this, "Vehicle info updated successfully!", Toast.LENGTH_SHORT).show()
-                        startActivity(Intent(this, ConnectObd::class.java))
+                        startActivity(Intent(this, OnboardingActivity::class.java))
                         finish()
                     }
                     .addOnFailureListener { e ->

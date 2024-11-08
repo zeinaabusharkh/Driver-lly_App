@@ -18,6 +18,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".Leadership"
+            android:exported="false" />
+        <activity
             android:name=".AccountSettings"
             android:exported="false" />
         <activity
@@ -48,7 +51,7 @@
             android:name=".ConnectVehicle"
             android:exported="false" />
         <activity
-            android:name=".ConnectObd"
+            android:name=".OnboardingActivity"
             android:exported="false" />
         <activity
             android:name=".ProfileSetup"
