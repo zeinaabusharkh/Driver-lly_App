@@ -512,15 +512,6 @@
                     android:orientation="vertical"
                     android:padding="16dp">
 
-                    <TextView
-                        android:id="@+id/feedback_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Feedback"
-                        android:textSize="14sp"
-                        android:textColor="#000"
-                        android:textStyle="bold"
-                        android:paddingBottom="4dp"/>
 
                     <!-- Feedback Text -->
                     <TextView
@@ -532,25 +523,7 @@
                         android:textColor="#333"
                         android:paddingBottom="16dp"/>
 
-                    <!-- Suggestions Section -->
-                    <TextView
-                        android:id="@+id/suggestions_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Suggestions"
-                        android:textSize="14sp"
-                        android:textColor="#000"
-                        android:textStyle="bold"
-                        android:paddingBottom="4dp"/>
 
-                    <TextView
-                        android:id="@+id/suggestions_message"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text=""
-                        android:textSize="12sp"
-                        android:textColor="#FF9800"
-                        android:paddingBottom="8dp"/>
 
                 </LinearLayout>
 

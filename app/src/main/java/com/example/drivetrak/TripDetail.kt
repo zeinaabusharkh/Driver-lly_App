@@ -58,8 +58,7 @@ class TripDetail : AppCompatActivity() {
                     val totalFuelUsed = document.getDouble("totalFuelUsed") ?: 0.0
                     val drowsy_count = document.getLong("drowsy_count") ?: 0
                     val yanwing_count = document.getLong("yanwing_count") ?: 0
-                    val suggestions_message = document.getString("suggestions_message") ?: "Unknown"
-                    val feedback_message =  document.getString("feedback_message") ?: "Unknown"
+                    val feedback_message =  document.getString("FeedbackMessage") ?: "Not Available"
 
                     val durationTextView: TextView = findViewById(R.id.trip_duration)
                     val dateTextView: TextView = findViewById(R.id.trip_date)
@@ -78,7 +77,6 @@ class TripDetail : AppCompatActivity() {
                     val triptitleTextView: TextView = findViewById(R.id.trip_title)
                     val drowsy_countTextView: TextView = findViewById(R.id.drowsy_count)
                     val yanwing_countTextView: TextView = findViewById(R.id.yawning_count)
-                    val suggestions_messageTextView: TextView = findViewById(R.id.suggestions_message)
                     val feedback_messageTextView: TextView = findViewById(R.id.feedback_message)
 
                     // Set the data to the respective TextViews
@@ -100,7 +98,6 @@ class TripDetail : AppCompatActivity() {
                     highestspeedTextView.text = "Highest Speed: $highestSpeed km/h"
                     lowestspeedTextView.text = "Lowest Speed: $lowestSpeed km/h"
                     fuelTextView.text = "Fuel Used: $totalFuelUsed ml"
-                    suggestions_messageTextView.text = "$suggestions_message"
                     feedback_messageTextView.text = "$feedback_message"
                     setScoreBackgroundColor(tripScoreText, overallScore)
 

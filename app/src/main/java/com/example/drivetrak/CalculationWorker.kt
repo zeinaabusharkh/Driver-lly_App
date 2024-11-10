@@ -1,6 +1,10 @@
 // Main Worker Class
 package com.example.drivetrak
 
+import okhttp3.*
+import org.json.JSONObject
+import java.io.IOException
+
 import android.content.Context
 import android.os.Build
 import androidx.work.Worker
@@ -20,6 +24,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody.Companion.toRequestBody
+import org.json.JSONArray
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.ZoneId
@@ -37,9 +44,10 @@ class CalculationWorker(appContext: Context, workerParams: WorkerParameters) : W
     private val scope = CoroutineScope(Dispatchers.IO)
 
     override fun doWork(): Result {
-       // processTripData("TRIP000029")
-        processAllTrips()
-        processAllUsers()
+       processTripData("TRIP000029")
+        //processAllTrips()
+        //processAllUsers()
+
         return Result.success()
     }
 
@@ -63,6 +71,7 @@ class CalculationWorker(appContext: Context, workerParams: WorkerParameters) : W
 
                         if (tripCount == userTrips.size) {
                             val avgScore = totalScore / tripCount
+                            // i would like to keep a history of the user score everything saved in a array
                             user.reference.update("score", avgScore)
                         }
                     }
@@ -85,6 +94,7 @@ class CalculationWorker(appContext: Context, workerParams: WorkerParameters) : W
                     }else{
                         val tripId = trip.key ?: continue
                         processTripData(tripId)
+
                     }
                 }
             }
@@ -135,6 +145,7 @@ class CalculationWorker(appContext: Context, workerParams: WorkerParameters) : W
                 var totalFuelUsed = 0.0
                 var firstTimestamp: Long? = null
                 var lastTimestamp: Long? = null
+                var feedbackMessage = ""
 
                 for (record in snapshot.children) {
                     val dataMap = record.value as? Map<*, *> ?: continue
@@ -247,44 +258,132 @@ class CalculationWorker(appContext: Context, workerParams: WorkerParameters) : W
                                     .get().await()
                             val currentUser = userQuery.documents.firstOrNull()?.getString("uid")
 
-                            // Create trip report
-                            val tripReport = hashMapOf(
-                                "vin" to (tripEntries.firstOrNull()?.carID ?: ""),
-                                "tripId" to tripId,
-                                "startTime" to startTime,
-                                "endTime" to endTime,
-                                "totalTime" to duration,
-                                "date" to date,
-                                "totalFuelUsed" to totalFuelUsed,
-                                "averageRpm" to avgRpm,
-                                "averageSpeed" to avgSpeed,
-                                "highestSpeed" to highestSpeed,
-                                "lowestSpeed" to if (lowestSpeed == Int.MAX_VALUE) 0 else lowestSpeed,
-                                "OverAllScoreOfTrip" to score,
-                                "alerts" to getAlertsSummary(
-                                    tripEntries.lastOrNull()?.alerts,
-                                    drowsyCount,
-                                    yawnCount
-                                )
-                            )
+                            //geenrate feedback message
+                            val apiKey = "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"
+                            // Construct the prompt for ChatGPT
+                            val alerts_last = tripEntries.lastOrNull()?.alerts
 
-                            // Create trip document
-                            val tripDocument = hashMapOf(
-                                "tripId" to tripId,
-                                "entries" to rawTripEntries,
-                                "userId" to currentUser,
-                                "createdAt" to FieldValue.serverTimestamp(),
-                                "metadata" to hashMapOf(
-                                    "carId" to (tripEntries.firstOrNull()?.carID),
-                                    "deviceId" to (tripEntries.firstOrNull()?.deviceID),
-                                    "startTime" to firstTimestamp,
-                                    "endTime" to lastTimestamp,
-                                    "entryCount" to tripEntries.size
-                                ).filterValues { it != null }
-                            )
+                            val prompt = """
+                                    Generate a less than 200  word feedback for a driver based on the following trip data:
+                                    Total Fuel Used: $totalFuelUsed ml
+                                    Average Speed: $avgSpeed km/h
+                                    Highest Speed: $highestSpeed km/h
+                                    Average RPM: $avgRpm
+                                    Overall Trip Score: $score out of 100
+                                    Drowsiness Alerts count: $drowsyCount
+                                    Yawning Alerts count: $yawnCount
+                                    Total Time: $duration
+                                    Start Time: $startTime
+                                    End Time: $endTime
+                                    Hard Acceleration Alert count: ${alerts_last?.hardAcceleration?.count ?: 0}
+                                    Speeding Alert counts: ${alerts_last?.speeding?.count ?: 0}
+                                    Emergency Braking Alert count: ${alerts_last?.emergencyBraking?.count ?: 0}
+                                    Fuel Alerts count: ${alerts_last?.fuelLevel?.count ?: 0}
+                                    Battery Alerts count: ${alerts_last?.batteryLevel?.count ?: 0}
+                                    Drowsiness Alert count: $drowsyCount
+                                    Yawning Alert count: $yawnCount
+                                
+                                    Provide useful insights and suggestions for improvement.
+                                """.trimIndent()
 
-                            // Save data
-                            saveTripData(tripId, tripDocument, tripReport, currentUser)
+                            // Define a variable to hold the feedback message
+                            var feedbackMessage = ""
+
+// Call getChatGPTResponse and update the variable within the callback
+                            getChatGPTResponse(apiKey, prompt) { response ->
+                                if (response != null) {
+                                        Log.d("ChatGPT response:", response)
+
+                                    feedbackMessage = response.toString()
+
+                                    // Create trip report with the feedback message
+                                    val tripReport = hashMapOf(
+                                        "vin" to (tripEntries.firstOrNull()?.carID ?: ""),
+                                        "tripId" to tripId,
+                                        "startTime" to startTime,
+                                        "endTime" to endTime,
+                                        "totalTime" to duration,
+                                        "date" to date,
+                                        "totalFuelUsed" to totalFuelUsed,
+                                        "averageRpm" to avgRpm,
+                                        "averageSpeed" to avgSpeed,
+                                        "highestSpeed" to highestSpeed,
+                                        "lowestSpeed" to if (lowestSpeed == Int.MAX_VALUE) 0 else lowestSpeed,
+                                        "OverAllScoreOfTrip" to score,
+                                        "FeedbackMessage" to feedbackMessage,
+                                        "alerts" to getAlertsSummary(
+                                            tripEntries.lastOrNull()?.alerts,
+                                            drowsyCount,
+                                            yawnCount
+                                        )
+                                    )
+                                    // Create trip document
+                                    val tripDocument = hashMapOf(
+                                        "tripId" to tripId,
+                                        "entries" to rawTripEntries,
+                                        "userId" to currentUser,
+                                        "createdAt" to FieldValue.serverTimestamp(),
+                                        "metadata" to hashMapOf(
+                                            "carId" to (tripEntries.firstOrNull()?.carID),
+                                            "deviceId" to (tripEntries.firstOrNull()?.deviceID),
+                                            "startTime" to firstTimestamp,
+                                            "endTime" to lastTimestamp,
+                                            "entryCount" to tripEntries.size
+                                        ).filterValues { it != null }
+                                    )
+
+
+                                    // Save data
+                                    saveTripData(tripId, tripDocument, tripReport, currentUser)
+                                } else {
+                                    Log.e("ChatGPT", "Failed to generate feedback")
+
+                                    // Create trip report
+                                    val tripReport = hashMapOf(
+                                        "vin" to (tripEntries.firstOrNull()?.carID ?: ""),
+                                        "tripId" to tripId,
+                                        "startTime" to startTime,
+                                        "endTime" to endTime,
+                                        "totalTime" to duration,
+                                        "date" to date,
+                                        "totalFuelUsed" to totalFuelUsed,
+                                        "averageRpm" to avgRpm,
+                                        "averageSpeed" to avgSpeed,
+                                        "highestSpeed" to highestSpeed,
+                                        "lowestSpeed" to if (lowestSpeed == Int.MAX_VALUE) 0 else lowestSpeed,
+                                        "OverAllScoreOfTrip" to score,
+                                        "FeedbackMessage" to "Not Found :(",
+                                        "alerts" to getAlertsSummary(
+                                            tripEntries.lastOrNull()?.alerts,
+                                            drowsyCount,
+                                            yawnCount
+                                        )
+                                    )
+
+                                    // Create trip document
+                                    val tripDocument = hashMapOf(
+                                        "tripId" to tripId,
+                                        "entries" to rawTripEntries,
+                                        "userId" to currentUser,
+                                        "createdAt" to FieldValue.serverTimestamp(),
+                                        "metadata" to hashMapOf(
+                                            "carId" to (tripEntries.firstOrNull()?.carID),
+                                            "deviceId" to (tripEntries.firstOrNull()?.deviceID),
+                                            "startTime" to firstTimestamp,
+                                            "endTime" to lastTimestamp,
+                                            "entryCount" to tripEntries.size
+                                        ).filterValues { it != null }
+                                    )
+
+                                    // Save data
+                                    saveTripData(tripId, tripDocument, tripReport, currentUser)
+
+
+                                }
+                            }
+
+
+
                         } catch (e: Exception) {
                             Log.e("TripData", "Error processing trip data: ${e.message}")
                         }
@@ -454,4 +553,70 @@ class CalculationWorker(appContext: Context, workerParams: WorkerParameters) : W
                 Log.e("TripData", "Error saving trip report: ${e.message}")
             }
     }
+
+
+    fun getChatGPTResponse(apiKey: String, prompt: String, callback: (String?) -> Unit) {
+        val client = OkHttpClient()
+
+        val mediaType = "application/json; charset=utf-8".toMediaTypeOrNull()
+
+        // Construct the request body
+        val requestBody = JSONObject().apply {
+            put("model", "gpt-3.5-turbo") // Ensure you're using the correct model
+            put("messages", JSONArray().apply {
+                put(JSONObject().apply {
+                    put("role", "user")
+                    put("content", prompt)
+                })
+            })
+        }.toString().toRequestBody(mediaType)
+
+        // Build the request with Authorization header
+        val request = Request.Builder()
+            .url("https://api.openai.com/v1/chat/completions")  // Correct endpoint
+            .post(requestBody)
+            .addHeader("Authorization", "Bearer $apiKey") // Ensure correct Bearer token format
+            .addHeader("Content-Type", "application/json")
+            .build()
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                e.printStackTrace()
+                Log.e("ChatGPT", "Request failed: ${e.message}")
+                callback(null)  // Return null on failure
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                if (!response.isSuccessful) {
+                    Log.e("ChatGPT", "Response not successful: ${response.code}")
+                    val responseBody = response.body?.string()
+                    Log.e("ChatGPT", "Error Response: $responseBody")
+                    callback(null)
+                } else {
+                    try {
+                        val responseBody = response.body?.string()
+                        if (responseBody != null) {
+                            val jsonResponse = JSONObject(responseBody)
+                            val message = jsonResponse.getJSONArray("choices")
+                                .getJSONObject(0)
+                                .getJSONObject("message")
+                                .getString("content")
+                            callback(message)
+                        } else {
+                            Log.e("ChatGPT", "Response body is null")
+                            callback(null)
+                        }
+                    } catch (e: Exception) {
+                        Log.e("ChatGPT", "Error parsing response: ${e.message}")
+                        callback(null)
+                    }
+                }
+            }
+        })
+    }
+
+
+
+
+
 }
