@@ -19,6 +19,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -50,10 +51,8 @@ dependencies {
     implementation ("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation ("androidx.coordinatorlayout:coordinatorlayout:1.2.0")
     implementation ("com.squareup.okhttp3:okhttp:4.9.3")
-
-
-
-
+    implementation ("com.google.android.gms:play-services-base:18.0.1")
+    implementation ("com.google.android.gms:play-services-maps:18.0.2")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

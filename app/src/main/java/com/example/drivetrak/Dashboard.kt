@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -134,6 +135,7 @@ class Dashboard : AppCompatActivity() {
                         val profileImageUrl = document.getString("profileImageUrl")
                         val profileLocation = document.getString("profileLocation") ?: "Unknown"
                         val score = document.getLong("score") ?: 0L
+                        val vin = document.getString("vehicle") ?: "Unknown"
 
                         usernameTextView.text = username
                         profile_location.text = profileLocation
@@ -146,6 +148,8 @@ class Dashboard : AppCompatActivity() {
                                 .transform(CircleCrop())
                                 .into(profileImageView)
                         }
+                        loadPerformanceAlerts(vin)
+
                     } else {
                         // Handle the case where the document does not exist
                         usernameTextView.text = "No username found"
@@ -161,8 +165,132 @@ class Dashboard : AppCompatActivity() {
                     score_text.text = "0%"
                     setScoreBackgroundColor(score_text, 0)
                 }
+
+
+            // create a function that reads all the alerts from the tripsReport collection to geenrate a overall performance report and show each alert count in a progress bar
+
+
+
+
         }
     }
+    private fun loadPerformanceAlerts(vinID: String) {
+        // Retrieve the user's trips from Firestore
+        firestore.collection("tripReports")
+            .whereEqualTo("vin", vinID)
+            .get()
+            .addOnSuccessListener { result ->
+                var totalBraking = 0
+                var totalSpeeding = 0
+                var totalDrowsiness = 0
+                var totalHardAcceleration = 0
+                var totalYawning = 0
+                var fuelAlerts = 0
+                var batteryAlerts = 0
+                var totalTrips = 0
+                var totalDrivingTimeMillis = 0L  // Keep this as Long
+
+                // Loop through all trips and aggregate the alerts
+                for (document in result) {
+                    val alerts = document.get("alerts") as? Map<String, Long> ?: emptyMap()
+                    totalBraking += alerts["emergencyBraking"]?.toInt() ?: 0
+                    totalSpeeding += alerts["speeding"]?.toInt() ?: 0
+                    totalDrowsiness += alerts["drowsiness"]?.toInt() ?: 0
+                    totalHardAcceleration += alerts["hardAcceleration"]?.toInt() ?: 0
+                    totalYawning += alerts["yawning"]?.toInt() ?: 0
+                    fuelAlerts += alerts["fuelAlerts"]?.toInt() ?: 0
+                    batteryAlerts += alerts["batteryAlerts"]?.toInt() ?: 0
+                    totalTrips++
+
+                    // Calculate and accumulate the total driving time in milliseconds
+                    val totalTime = document.getString("totalTime") ?: "0:00"
+                    totalDrivingTimeMillis += convertTimeToMillis(totalTime)
+                }
+
+                // Convert total time to formatted string before updating UI
+                val totalDrivingTimeFormatted = convertMillisToHours(totalDrivingTimeMillis)
+
+                // Now update the progress bars
+                updatePerformanceReport(
+                    totalBraking,
+                    totalSpeeding,
+                    totalDrowsiness,
+                    totalHardAcceleration,
+                    totalYawning,
+                    fuelAlerts,
+                    batteryAlerts,
+                    totalTrips,
+                    totalDrivingTimeFormatted
+                )
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Error loading alerts: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+
+    // Convert time in "HH:mm" format to milliseconds
+    private fun convertTimeToMillis(time: String): Long {
+        val timeParts = time.split(":")
+        return if (timeParts.size == 2) {
+            val hours = timeParts[0].toLongOrNull() ?: 0
+            val minutes = timeParts[1].toLongOrNull() ?: 0
+            // Convert total time to milliseconds
+            (hours * 60 * 60 * 1000) + (minutes * 60 * 1000)
+        } else {
+            0L
+        }
+    }
+
+    // Convert total time in milliseconds to hours
+    private fun convertMillisToHours(milliseconds: Long): String {
+        val hours = milliseconds / (1000 * 60 * 60)
+        val minutes = (milliseconds % (1000 * 60 * 60)) / (1000 * 60)
+        return String.format("%02d:%02d", hours, minutes)  // Return in "HH:mm" format
+    }
+
+    private fun updatePerformanceReport(
+        totalBraking: Int,
+        totalSpeeding: Int,
+        totalDrowsiness: Int,
+        totalHardAcceleration: Int,
+        totalYawning: Int,
+        fuelAlerts: Int,
+        batteryAlerts: Int,
+        totalTrips: Int,
+        totalDrivingTimeMillis: String // Now this is a String
+    ) {
+        // Get the progress bars from the layout
+        val accelerationProgressBar: ProgressBar = findViewById(R.id.acceleration_progress)
+        val brakingProgressBar: ProgressBar = findViewById(R.id.emergency_progress)
+        val speedingProgressBar: ProgressBar = findViewById(R.id.Speeding_progress)
+        val drowsinessProgressBar: ProgressBar = findViewById(R.id.Drowsiness_progress)
+        val yawningProgressBar: ProgressBar = findViewById(R.id.Yawning_progress)
+        val batteryAlertProgressBar: ProgressBar = findViewById(R.id.battery_alert_count_progress)
+        val fuelAlertProgressBar: ProgressBar = findViewById(R.id.fuel_progress)
+
+        // Extract values from the 'alerts' map and update progress bars
+        batteryAlertProgressBar.progress = batteryAlerts * 10
+        drowsinessProgressBar.progress = totalDrowsiness * 10
+        brakingProgressBar.progress = totalBraking * 10
+        fuelAlertProgressBar.progress = fuelAlerts * 10
+        accelerationProgressBar.progress = totalHardAcceleration * 10
+        speedingProgressBar.progress = totalSpeeding * 10
+        yawningProgressBar.progress = totalYawning * 10
+
+        // Update alert count text views
+        findViewById<TextView>(R.id.battery_alert_count).text = "Battery Alerts: $batteryAlerts"
+        findViewById<TextView>(R.id.Drowsiness_label).text = "Drowsy Alerts: $totalDrowsiness"
+        findViewById<TextView>(R.id.emergency_braking_count).text = "Emergency Braking Alerts: $totalBraking"
+        findViewById<TextView>(R.id.Fuel_label).text = "Low Fuel Level Alerts: $fuelAlerts"
+        findViewById<TextView>(R.id.hard_acceleration_count).text = "Hard Acceleration Alerts: $totalHardAcceleration"
+        findViewById<TextView>(R.id.Speeding_label).text = "Speeding Alerts: $totalSpeeding"
+        findViewById<TextView>(R.id.Yawning_label).text = "Yawning Alerts: $totalYawning"
+        findViewById<TextView>(R.id.total_trips).text = "$totalTrips"
+        findViewById<TextView>(R.id.total_hours).text = "$totalDrivingTimeMillis"
+    }
+
+
 
     private fun loadTrip() {
         trips_container.removeAllViews()
