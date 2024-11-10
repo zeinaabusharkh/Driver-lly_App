@@ -197,6 +197,7 @@
                 android:layout_marginTop="24dp"
                 android:orientation="vertical">
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -207,214 +208,41 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Over all Performance Report"
+                    android:text="Overall Performance Report"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold" />
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
-                <TextView
-
-                    android:id="@+id/view_performance"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="VIEW "
-                    android:textAlignment="textEnd"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="10dp"
-            android:background="#EBE9E9"
-            android:padding="30dp">
-
-            <!-- Individual Report Items -->
-
-            <!-- Fuel Level  -->
-            <TextView
-                android:id="@+id/Fuel_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Low Fuel Level"
-                android:textSize="16sp"
-                android:textColor="@color/black"/>
-
-            <ProgressBar
-                android:id="@+id/fuel_progress"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:progress="0"
-                android:progressTint="#4CAF50"/>
-
-            <!-- Battery Alert -->
-            <TextView
-                android:id="@+id/battery_alert_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Battery Alerts:"
-                android:textSize="16sp"
-                android:textColor="@color/black" />
-
-            <ProgressBar
-                android:id="@+id/battery_alert_count_progress"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:progress="0"
-                android:progressTint="#4CAF50"/>
-
-
-            <!-- Emergency Braking Alert -->
-            <TextView
-                android:id="@+id/emergency_braking_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Emergency Braking:"
-                android:textSize="16sp"
-                android:textColor="@color/black" />
-
-            <ProgressBar
-                android:id="@+id/emergency_progress"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:progress="0"
-                android:progressTint="#4CAF50"/>
-
-            <!-- Hard Acceleration Alert -->
-            <TextView
-                android:id="@+id/hard_acceleration_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Hard Acceleration: 0"
-                android:textSize="16sp"
-                android:textColor="@color/black" />
-
-            <ProgressBar
-                android:id="@+id/acceleration_progress"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:progress="0"
-                android:progressTint="#4CAF50"/>
-
-
-            <!-- Speeding -->
-            <TextView
-                android:id="@+id/Speeding_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Speeding"
-                android:textSize="16sp"
-                android:textColor="@color/black"/>
-
-            <ProgressBar
-                android:id="@+id/Speeding_progress"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:progress="0"
-                android:progressTint="#4CAF50"/>
-
-            <!-- Drowsiness -->
-            <TextView
-                android:id="@+id/Drowsiness_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Drowsiness"
-                android:textSize="16sp"
-                android:textColor="@color/black"/>
-
-            <ProgressBar
-                android:id="@+id/Drowsiness_progress"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:progress="0"
-                android:progressTint="#4CAF50"/>
-
-            <!-- Yawning -->
-            <TextView
-                android:id="@+id/Yawning_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Yawning"
-                android:textSize="16sp"
-                android:textColor="@color/black"/>
-
-            <ProgressBar
-                android:id="@+id/Yawning_progress"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:progress="0"
-                android:progressTint="#FF5722"/>
-
-
-
-            <!-- Summary Section -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="16dp">
-
-                <TextView
-                    android:id="@+id/total_hours"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="200"
-                    android:textSize="18sp"
-                    android:textColor="@color/black"/>
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
-                <TextView
-                    android:id="@+id/total_trips"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="20"
-                    android:textSize="18sp"
-                    android:textColor="@color/black"/>
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/preformance_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Driving Hours"
-                    android:textSize="15sp"
-                    android:textColor="@color/black"/>
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Trips"
-                    android:textSize="15sp"
-                    android:textColor="@color/black"/>
+                android:layout_marginTop="24dp"
+                android:orientation="vertical">
             </LinearLayout>
-        </LinearLayout>
+
+
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="AI Based Driving Analysis"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/ai_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:orientation="vertical">
+            </LinearLayout>
+
+
+
         </LinearLayout>
 
     </ScrollView>
