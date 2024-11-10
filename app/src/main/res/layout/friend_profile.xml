@@ -1,43 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:layout_margin="16dp"
+app:cardCornerRadius="16dp"
+app:cardElevation="4dp"
+app:cardBackgroundColor="@color/white">
+
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center_horizontal"
-    android:orientation="vertical"
-    android:paddingTop="50dp"
-    android:paddingBottom="20dp">
+    android:orientation="horizontal"
+    android:padding="16dp"
+    >
 
     <ImageView
+        android:layout_gravity="center_vertical"
         android:id="@+id/profile_image"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:background="@drawable/circular_shape"
-         />
+        />
 
-    <TextView
-        android:id="@+id/profile_name"
-        android:layout_width="wrap_content"
+    <!-- Content Container -->
+    <LinearLayout
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text=""
-        android:textColor="@color/black"
-        android:textSize="24sp" />
+        android:layout_marginStart="16dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/profile_location"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textColor="@color/black"
-        android:textSize="16sp" />
+        <TextView
+            android:id="@+id/profile_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@color/black"
+            android:textSize="24sp" />
 
-    <Button
-        android:backgroundTint="#070707"
-        android:id="@+id/view_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:drawablePadding="8dp"
-        android:text="View"
-        android:textAllCaps="false"
-        android:textColor="@color/white" />
+        <!-- Date and Duration Container -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/profile_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <Button
+            android:backgroundTint="#070707"
+            android:id="@+id/view_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="8dp"
+            android:layout_marginTop="10dp"
+            android:text="View"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+
 </LinearLayout>
+
+</androidx.cardview.widget.CardView>

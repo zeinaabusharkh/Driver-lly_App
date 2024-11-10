@@ -44,12 +44,12 @@ class CalculationWorker(appContext: Context, workerParams: WorkerParameters) : W
     private val scope = CoroutineScope(Dispatchers.IO)
 
     override fun doWork(): Result {
-       processTripData("TRIP000029")
-        //processAllTrips()
-        //processAllUsers()
-
+       //processTripData("TRIP000029")
+        processAllTrips()
+        processAllUsers()
         return Result.success()
     }
+
 
     // calculate each users overall score and save it to user
     private fun processAllUsers() {
