@@ -30,7 +30,7 @@
             android:inputType="textEmailAddress"
             android:padding="12dp"
             android:layout_marginTop="24dp"
-            android:background="@android:color/white" />
+            android:background="@drawable/rounded_edit_text" />
 
         <EditText
             android:id="@+id/passwordInput"
@@ -40,14 +40,15 @@
             android:inputType="textPassword"
             android:padding="12dp"
             android:layout_marginTop="12dp"
-            android:background="@android:color/white" />
+            android:background="@drawable/rounded_edit_text"  />
 
         <Spinner
             android:layout_marginTop="12dp"
             android:padding="12dp"
             android:id="@+id/city_spinner"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_edit_text" />
 
         <Button
             android:id="@+id/registerButton"

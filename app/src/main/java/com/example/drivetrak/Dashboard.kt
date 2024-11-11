@@ -229,31 +229,33 @@ class Dashboard : AppCompatActivity() {
 
 
                 // genertae feedback based on the user driving performance over view
-                generateFeedback(
-                    totalBraking,
-                    totalSpeeding,
-                    totalDrowsiness,
-                    totalHardAcceleration,
-                    totalYawning,
-                    fuelAlerts,
-                    batteryAlerts,
-                    totalTrips,
-                    totalDrivingTimeFormatted
-                )
+                if(totalTrips > 0) {
+                    generateFeedback(
+                        totalBraking,
+                        totalSpeeding,
+                        totalDrowsiness,
+                        totalHardAcceleration,
+                        totalYawning,
+                        fuelAlerts,
+                        batteryAlerts,
+                        totalTrips,
+                        totalDrivingTimeFormatted
+                    )
 
 
-                // Now update the progress bars
-                updatePerformanceReport(
-                    totalBraking,
-                    totalSpeeding,
-                    totalDrowsiness,
-                    totalHardAcceleration,
-                    totalYawning,
-                    fuelAlerts,
-                    batteryAlerts,
-                    totalTrips,
-                    totalDrivingTimeFormatted
-                )
+                    // Now update the progress bars
+                    updatePerformanceReport(
+                        totalBraking,
+                        totalSpeeding,
+                        totalDrowsiness,
+                        totalHardAcceleration,
+                        totalYawning,
+                        fuelAlerts,
+                        batteryAlerts,
+                        totalTrips,
+                        totalDrivingTimeFormatted
+                    )
+                }
             }
             .addOnFailureListener { e ->
                 Toast.makeText(this, "Error loading alerts: ${e.message}", Toast.LENGTH_SHORT)

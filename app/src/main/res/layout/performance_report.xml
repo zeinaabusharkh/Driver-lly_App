@@ -19,7 +19,7 @@
                 android:id="@+id/Fuel_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Low Fuel Level"
+                android:text="Low Fuel Level: "
                 android:textSize="16sp"
                 android:textColor="@color/black"/>
 
@@ -70,7 +70,7 @@
                 android:id="@+id/hard_acceleration_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Hard Acceleration: 0"
+                android:text="Hard Acceleration: "
                 android:textSize="16sp"
                 android:textColor="@color/black" />
 
@@ -87,7 +87,7 @@
                 android:id="@+id/Speeding_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Speeding"
+                android:text="Speeding:"
                 android:textSize="16sp"
                 android:textColor="@color/black"/>
 
@@ -104,7 +104,7 @@
                 android:id="@+id/Drowsiness_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Drowsiness"
+                android:text="Drowsiness:"
                 android:textSize="16sp"
                 android:textColor="@color/black"/>
 
@@ -121,7 +121,7 @@
                 android:id="@+id/Yawning_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Yawning"
+                android:text="Yawning:"
                 android:textSize="16sp"
                 android:textColor="@color/black"/>
 
@@ -144,7 +144,7 @@
                     android:id="@+id/total_hours"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="200"
+                    android:text=""
                     android:textSize="18sp"
                     android:textColor="@color/black"/>
 
@@ -157,7 +157,7 @@
                     android:id="@+id/total_trips"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="20"
+                    android:text=""
                     android:textSize="18sp"
                     android:textColor="@color/black"/>
             </LinearLayout>

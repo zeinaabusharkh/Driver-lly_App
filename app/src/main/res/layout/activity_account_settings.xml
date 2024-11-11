@@ -63,7 +63,7 @@
             android:inputType="textPersonName"
             android:padding="12dp"
             android:layout_marginTop="10dp"
-            android:background="@android:color/white" />
+            android:background="@drawable/rounded_edit_text" />
 
         <Button
             android:id="@+id/saveChangesButton"

@@ -32,7 +32,7 @@
             android:inputType="textEmailAddress"
             android:padding="12dp"
             android:layout_marginTop="24dp"
-            android:background="@android:color/white" />
+            android:background="@drawable/rounded_edit_text"  />
 
         <EditText
             android:id="@+id/loginPasswordInput"
@@ -42,7 +42,7 @@
             android:inputType="textPassword"
             android:padding="12dp"
             android:layout_marginTop="12dp"
-            android:background="@android:color/white" />
+            android:background="@drawable/rounded_edit_text"  />
 
         <Button
             android:id="@+id/loginButton"
