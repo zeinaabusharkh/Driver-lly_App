@@ -21,7 +21,8 @@
                 android:layout_height="wrap_content"
                 android:text="Low Fuel Level: "
                 android:textSize="16sp"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                android:layout_marginBottom = "10dp"/>
 
             <ProgressBar
                 android:id="@+id/fuel_progress"
@@ -29,7 +30,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:progress="0"
-                android:progressTint="#4CAF50"/>
+                android:progressTint="#4CAF50"
+                android:layout_marginBottom = "10dp"/>
 
             <!-- Battery Alert -->
             <TextView
@@ -38,7 +40,8 @@
                 android:layout_height="wrap_content"
                 android:text="Battery Alerts:"
                 android:textSize="16sp"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:layout_marginBottom = "10dp" />
 
             <ProgressBar
                 android:id="@+id/battery_alert_count_progress"
@@ -46,7 +49,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:progress="0"
-                android:progressTint="#4CAF50"/>
+                android:progressTint="#4CAF50"
+                android:layout_marginBottom = "10dp"/>
 
             <!-- Emergency Braking Alert -->
             <TextView
@@ -55,7 +59,8 @@
                 android:layout_height="wrap_content"
                 android:text="Emergency Braking:"
                 android:textSize="16sp"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:layout_marginBottom = "10dp"/>
 
             <ProgressBar
                 android:id="@+id/emergency_progress"
@@ -63,7 +68,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:progress="0"
-                android:progressTint="#4CAF50"/>
+                android:progressTint="#4CAF50"
+                android:layout_marginBottom = "10dp"/>
 
             <!-- Hard Acceleration Alert -->
             <TextView
@@ -72,7 +78,8 @@
                 android:layout_height="wrap_content"
                 android:text="Hard Acceleration: "
                 android:textSize="16sp"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:layout_marginBottom = "10dp"/>
 
             <ProgressBar
                 android:id="@+id/acceleration_progress"
@@ -80,7 +87,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:progress="0"
-                android:progressTint="#4CAF50"/>
+                android:progressTint="#4CAF50"
+                android:layout_marginBottom = "10dp"
+                />
 
             <!-- Speeding -->
             <TextView
@@ -89,7 +98,8 @@
                 android:layout_height="wrap_content"
                 android:text="Speeding:"
                 android:textSize="16sp"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                android:layout_marginBottom = "10dp"/>
 
             <ProgressBar
                 android:id="@+id/Speeding_progress"
@@ -97,7 +107,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:progress="0"
-                android:progressTint="#4CAF50"/>
+                android:progressTint="#4CAF50"
+                android:layout_marginBottom = "10dp"/>
 
             <!-- Drowsiness -->
             <TextView
@@ -106,7 +117,8 @@
                 android:layout_height="wrap_content"
                 android:text="Drowsiness:"
                 android:textSize="16sp"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                android:layout_marginBottom = "10dp"/>
 
             <ProgressBar
                 android:id="@+id/Drowsiness_progress"
@@ -114,7 +126,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:progress="0"
-                android:progressTint="#4CAF50"/>
+                android:progressTint="#4CAF50"
+                android:layout_marginBottom = "10dp"/>
 
             <!-- Yawning -->
             <TextView
@@ -123,7 +136,8 @@
                 android:layout_height="wrap_content"
                 android:text="Yawning:"
                 android:textSize="16sp"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                android:layout_marginBottom = "10dp"/>
 
             <ProgressBar
                 android:id="@+id/Yawning_progress"
@@ -131,7 +145,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:progress="0"
-                android:progressTint="#FF5722"/>
+                android:progressTint="#FF5722"
+                android:layout_marginBottom = "10dp"/>
 
             <!-- Summary Section -->
             <LinearLayout

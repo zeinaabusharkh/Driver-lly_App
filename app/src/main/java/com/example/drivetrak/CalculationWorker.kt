@@ -181,10 +181,10 @@ class CalculationWorker(appContext: Context, workerParams: WorkerParameters) : W
                     // Create Trip Entry
                     val entry = Trip(
                         batteryLevel = (dataMap["Battery Level"] as? Double) ?: 0.0,
-                        deceleration = (dataMap["Deceleration"] as? Long)?.toInt() ?: 0,
+                        deceleration = (dataMap["Deceleration"] as? Number)?.toInt() ?: 0,
                         fuelLevel = (dataMap["Fuel Level"] as? Double) ?: 0.0,
-                        rpm = (dataMap["RPM"] as? Long)?.toInt() ?: 0,
-                        speed = (dataMap["Speed"] as? Long)?.toInt() ?: 0,
+                        rpm = (dataMap["RPM"] as? Number)?.toInt() ?: 0,
+                        speed = (dataMap["Speed"] as? Number)?.toInt() ?: 0,
                         carID = dataMap["carID"] as? String ?: "",
                         deviceID = dataMap["deviceID"] as? String ?: "",
                         timeStamp = timestamp,
@@ -441,13 +441,16 @@ class CalculationWorker(appContext: Context, workerParams: WorkerParameters) : W
         var score = 100.0
 
         val weights = mapOf(
-            "hardAcceleration" to 2.0,
-            "speeding" to 3.0,
-            "emergencyBraking" to 5.0,
-            "fuelAlerts" to 1.0,
-            "batteryAlerts" to 1.0,
-            "drowsiness" to 20.0,
-            "yawning" to 10.0
+           // 10
+            "hardAcceleration" to 1.0,
+            "speeding" to 1.0,
+            "emergencyBraking" to 1.0,
+            //5
+            "fuelAlerts" to 0.5,
+            "batteryAlerts" to 0.5,
+           // 15
+            "drowsiness" to 1.5,
+            "yawning" to 1.5
         )
 
         Log.d("Alerts", "Alerts: $alerts")

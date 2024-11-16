@@ -58,7 +58,7 @@
                         app:layout_constraintBottom_toBottomOf="parent">
 
                         <LinearLayout
-                            android:background="#CAC9C9"
+                            android:background="#512196F3"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
@@ -113,7 +113,7 @@
                         app:layout_constraintEnd_toEndOf="parent">
 
                         <LinearLayout
-                            android:background="#CAC9C9"
+                            android:background="#7C8BC34A"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
@@ -167,7 +167,7 @@
                         app:layout_constraintBottom_toBottomOf="parent">
 
                         <LinearLayout
-                            android:background="#CAC9C9"
+                            android:background="#5DFFC107"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
@@ -224,6 +224,13 @@
                         android:text="All Time"
                         style="@style/Widget.MaterialComponents.Chip.Choice"/>
 
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/friends_filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Friends"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"/>
+
                 </com.google.android.material.chip.ChipGroup>
 
 
@@ -248,7 +255,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#CAC9C9"
+                android:background="#5E03A9F4"
                 android:padding="16dp">
 
                 <TextView

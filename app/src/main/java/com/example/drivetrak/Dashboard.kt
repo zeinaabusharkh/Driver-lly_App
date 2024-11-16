@@ -166,7 +166,7 @@ class Dashboard : AppCompatActivity() {
                                 .transform(CircleCrop())
                                 .into(profileImageView)
                         }
-                        loadPerformanceAlerts(vin)
+
 
                     } else {
                         // Handle the case where the document does not exist
@@ -222,6 +222,8 @@ class Dashboard : AppCompatActivity() {
                     // Calculate and accumulate the total driving time in milliseconds
                     val totalTime = document.getString("totalTime") ?: "0:00"
                     totalDrivingTimeMillis += convertTimeToMillis(totalTime)
+                    Log.d("Time", " total time -> $totalTime , after the trans $totalDrivingTimeMillis ")
+
                 }
 
                 // Convert total time to formatted string before updating UI
@@ -378,23 +380,26 @@ class Dashboard : AppCompatActivity() {
 
 
 
-    // Convert time in "HH:mm" format to milliseconds
+    // Convert time in "mm:ss" format to milliseconds
     private fun convertTimeToMillis(time: String): Long {
+        Log.d("Time", time)
         val timeParts = time.split(":")
         return if (timeParts.size == 2) {
-            val hours = timeParts[0].toLongOrNull() ?: 0
-            val minutes = timeParts[1].toLongOrNull() ?: 0
+            val minutes = timeParts[0].toLongOrNull() ?: 0
+            val seconds = timeParts[1].toLongOrNull() ?: 0
+            Log.d("Time", "$minutes minutes and $seconds seconds")
             // Convert total time to milliseconds
-            (hours * 60 * 60 * 1000) + (minutes * 60 * 1000)
+            (minutes * 60 * 1000) + (seconds * 1000)
         } else {
             0L
         }
     }
 
-    // Convert total time in milliseconds to hours
+    // Convert total time in milliseconds to hours:minutes format
     private fun convertMillisToHours(milliseconds: Long): String {
         val hours = milliseconds / (1000 * 60 * 60)
         val minutes = (milliseconds % (1000 * 60 * 60)) / (1000 * 60)
+        Log.d("Time", "$hours hours and $minutes minutes")
         return String.format("%02d:%02d", hours, minutes)  // Return in "HH:mm" format
     }
 
@@ -422,14 +427,17 @@ class Dashboard : AppCompatActivity() {
         val batteryAlertProgressBar: ProgressBar = performanceReportView.findViewById(R.id.battery_alert_count_progress)
         val fuelAlertProgressBar: ProgressBar = performanceReportView.findViewById(R.id.fuel_progress)
 
-        // Set progress bar values (multiplying by 10 to fit the 0-100 range for ProgressBar)
-        batteryAlertProgressBar.progress = minOf(batteryAlerts * 10, 100)
-        drowsinessProgressBar.progress = minOf(totalDrowsiness * 10, 100)
-        brakingProgressBar.progress = minOf(totalBraking * 10, 100)
-        fuelAlertProgressBar.progress = minOf(fuelAlerts * 10, 100)
-        accelerationProgressBar.progress = minOf(totalHardAcceleration * 10, 100)
-        speedingProgressBar.progress = minOf(totalSpeeding * 10, 100)
-        yawningProgressBar.progress = minOf(totalYawning * 10, 100)
+// Calculate total alert count across all types
+        val totalAlertCount = batteryAlerts + totalDrowsiness + totalBraking + fuelAlerts + totalHardAcceleration + totalSpeeding + totalYawning
+
+// Set progress bar values (each alert type divided by totalAlertCount, multiplied by 100 to fit 0-100 range)
+        batteryAlertProgressBar.progress = minOf((batteryAlerts.toFloat() / totalAlertCount * 100).toInt(), 100)
+        drowsinessProgressBar.progress = minOf((totalDrowsiness.toFloat() / totalAlertCount * 100).toInt(), 100)
+        brakingProgressBar.progress = minOf((totalBraking.toFloat() / totalAlertCount * 100).toInt(), 100)
+        fuelAlertProgressBar.progress = minOf((fuelAlerts.toFloat() / totalAlertCount * 100).toInt(), 100)
+        accelerationProgressBar.progress = minOf((totalHardAcceleration.toFloat() / totalAlertCount * 100).toInt(), 100)
+        speedingProgressBar.progress = minOf((totalSpeeding.toFloat() / totalAlertCount * 100).toInt(), 100)
+        yawningProgressBar.progress = minOf((totalYawning.toFloat() / totalAlertCount * 100).toInt(), 100)
 
         // Update the text views
         performanceReportView.findViewById<TextView>(R.id.battery_alert_count).text = "Battery Alerts: $batteryAlerts"
@@ -449,34 +457,54 @@ class Dashboard : AppCompatActivity() {
 
 
     private fun loadTrip() {
-        trips_container.removeAllViews()
         val currentUser = auth.currentUser
         currentUser?.let {
+            // Access the user's document in Firestore
             firestore.collection("users").document(it.uid).get()
                 .addOnSuccessListener { document ->
+                    // Retrieve the list of trip IDs
                     val tripIds = document.get("tripIds") as? List<String> ?: emptyList()
-                    trips_container.removeAllViews() // Clear existing views
+                    val vin = document.getString("vehicle") ?: "Unknown"
+
                     if (tripIds.isNotEmpty()) {
                         // Get the most recent trip ID (last entry in tripIds)
                         val mostRecentTripId = tripIds.last()
 
-                        // Retrieve and load only the most recent trip document
+                        // Retrieve and load only the most recent trip document from tripReports
                         firestore.collection("tripReports").document(mostRecentTripId).get()
                             .addOnSuccessListener { tripDocument ->
-                                loadTriplast(tripDocument)
+                                if (tripDocument.exists()) {
+                                    // Load the trip data if it exists
+                                    loadTriplast(tripDocument)
+                                    loadPerformanceAlerts(vin)
+
+                                } else {
+                                    Toast.makeText(this, "Trip document not found", Toast.LENGTH_SHORT).show()
+                                }
                             }
                             .addOnFailureListener { e ->
                                 Toast.makeText(this, "Error loading trip: ${e.message}", Toast.LENGTH_SHORT).show()
                             }
                     } else {
-                        findViewById<TextView>(R.id.no_trips_message).visibility = View.VISIBLE
+                        try {
+                            findViewById<TextView>(R.id.no_trips_message)?.visibility = View.VISIBLE
+                            findViewById<TextView>(R.id.no_trips_message_2)?.visibility = View.VISIBLE
+
+                        } catch (e: Exception) {
+                            Log.e("Dashboard", "Error setting no trips message visibility: ${e.message}")
+                        }
+
                     }
                 }
                 .addOnFailureListener { e ->
                     Toast.makeText(this, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
+        } ?: run {
+            // Handle case where the user is not authenticated
+            Toast.makeText(this, "User not authenticated", Toast.LENGTH_SHORT).show()
         }
     }
+
 
 
     private fun loadTriplast(document: DocumentSnapshot) {
@@ -495,7 +523,7 @@ class Dashboard : AppCompatActivity() {
 
         durationTextView.text = duration
         dateTextView.text = date
-        scoretext.text = scoreTrip.toString()
+        scoretext.text = scoreTrip.toString()+"%"
         setScoreBackgroundColor(scoretext, scoreTrip)
         tripNumber.text = tripId
         trips_container.addView(tripView)
@@ -509,7 +537,7 @@ class Dashboard : AppCompatActivity() {
 
     private fun setScoreBackgroundColor(textView: TextView, score: Long) {
         val color = when {
-            score >= 80 -> android.graphics.Color.GREEN
+            score >= 75 -> android.graphics.Color.GREEN
             score >= 50 -> android.graphics.Color.argb(255, 255, 165, 0) // Orange
             score.toInt() == 0 -> android.graphics.Color.BLACK
             else -> android.graphics.Color.RED

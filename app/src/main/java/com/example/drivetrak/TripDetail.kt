@@ -88,19 +88,20 @@ class TripDetail : AppCompatActivity() {
                     dateTextView.text = date
                     tripTimeText.text = "Start: $startTime | End: $endTime"
                     tripScoreText.text = "$overallScore %"
-                    emergencyBrakingTextView.text = "Emergency Braking: $emergencyBraking"
-                    hardAccelerationTextView.text = "Hard Acceleration: $hardAcceleration"
-                    speedingTextView.text = "Speeding: $speeding"
-                    batteryAlertTextView.text = "Battery Alerts: $batteryAlerts"
-                    fuelAlertTextView.text = "Fuel Alerts: $fuelAlerts"
+                    emergencyBrakingTextView.text = "$emergencyBraking"
+                    hardAccelerationTextView.text = "$hardAcceleration"
+                    speedingTextView.text = "$speeding"
+                    batteryAlertTextView.text = "$batteryAlerts"
+                    fuelAlertTextView.text = "$fuelAlerts"
                     tripTitleTextView.text = tripId
-                    drowsyCountTextView.text = "Drowsy: $drowsyCount"
-                    yawningCountTextView.text = "Yawning: $yawningCount"
-                    averageSpeedTextView.text = "Average Speed: $averageSpeed km/h"
-                    averageRpmTextView.text = "Average RPM: $averageRpm RPM"
-                    highestSpeedTextView.text = "Highest Speed: $highestSpeed km/h"
-                    lowestSpeedTextView.text = "Lowest Speed: $lowestSpeed km/h"
-                    fuelTextView.text = "Fuel Used: $totalFuelUsed ml"
+                    drowsyCountTextView.text = "$drowsyCount"
+                    yawningCountTextView.text = "$yawningCount"
+                    averageSpeedTextView.text = "$averageSpeed km/h"
+                    averageRpmTextView.text = "$averageRpm RPM"
+                    highestSpeedTextView.text = "$highestSpeed km/h"
+                    lowestSpeedTextView.text = "$lowestSpeed km/h"
+                    fuelTextView.text = String.format("Fuel Used: %.2f ml", totalFuelUsed)
+
                     feedbackMessageTextView.text = feedbackMessage
 
                     // Set background color based on overall score

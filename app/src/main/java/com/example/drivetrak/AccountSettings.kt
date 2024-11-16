@@ -12,6 +12,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
@@ -67,6 +69,13 @@ class AccountSettings : AppCompatActivity() {
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null && data.data != null) {
             val imageUri: Uri = data.data!!
             uploadProfilePhoto(imageUri)
+            // Display the selected image using Glide
+            imageUri?.let { uri ->
+                Glide.with(this)
+                    .load(uri)
+                    .transform(CircleCrop())
+                    .into(profileImageButton)
+            }
         }
     }
 

@@ -179,18 +179,6 @@
                     android:textStyle="bold" />
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/no_trips_message_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="You don't have any trips yet to calculate the score!!"
-                android:textSize="18sp"
-                android:layout_gravity="center"
-                android:textAlignment="center"
-                android:paddingBottom="10dp"
-                android:textColor="@color/black"
-                android:visibility="gone" />
-
             <LinearLayout
                 android:id="@+id/trips_container"
                 android:layout_width="match_parent"
@@ -221,6 +209,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:orientation="vertical">
+
             </LinearLayout>
 
 
@@ -240,6 +229,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:orientation="vertical">
+
             </LinearLayout>
 
 
